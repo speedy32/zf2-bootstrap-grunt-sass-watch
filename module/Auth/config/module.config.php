@@ -5,7 +5,9 @@ namespace Auth;
 return array(
 	'controllers' => array(
         'invokables' => array(
-            'Auth\Controller\Index' => 'Auth\Controller\IndexController'
+            'Auth\Controller\Index' => 'Auth\Controller\IndexController',
+            'Auth\Controller\Registration' => 'Auth\Controller\RegistrationController',
+            'Auth\Controller\Admin' => 'Auth\Controller\AdminController',
 		)
 	),
     'router' => array(

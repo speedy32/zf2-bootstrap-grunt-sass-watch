@@ -55,7 +55,8 @@ class IndexController extends AbstractActionController
 		$messages = null;
 
 		$request = $this->getRequest();
-        if ($request->isPost()) {
+        if ($request->isPost())
+        {
 
 			// Filters have been fixed
 			$form->setInputFilter(new LoginFilter($this->getServiceLocator()));
