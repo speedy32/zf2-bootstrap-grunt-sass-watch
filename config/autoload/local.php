@@ -28,7 +28,7 @@ return array(
                 'params' => array(
                     'user' => 'postgres',
                     'password' => 'postgres/.,',
-                    'dbname' => 'zf2-template',
+                    'dbname' => 'zf2_template',
                     'host' => 'localhost',
                     'port' => '5432'
                 )
