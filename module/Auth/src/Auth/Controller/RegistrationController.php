@@ -1,10 +1,10 @@
 <?php
-namespace AuthDoctrine\Controller;
+namespace Auth\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-use AuthDoctrine\Entity\User;
+use Auth\Entity\User;
 
 // a test class in a coolcsn namespace for installer. You can remove the next line
 use CsnBase\Zend\Validator\ConfirmPassword;
@@ -19,10 +19,10 @@ use Zend\Form\Annotation\AnnotationBuilder;
 // for the form
 use Zend\Form\Element;
 
-use AuthDoctrine\Form\RegistrationForm;
-use AuthDoctrine\Form\RegistrationFilter;
-use AuthDoctrine\Form\ForgottenPasswordForm;
-use AuthDoctrine\Form\ForgottenPasswordFilter;
+use Auth\Form\RegistrationForm;
+use Auth\Form\RegistrationFilter;
+use Auth\Form\ForgottenPasswordForm;
+use Auth\Form\ForgottenPasswordFilter;
 
 use Zend\Mail\Message;
 
@@ -39,7 +39,7 @@ class RegistrationController extends AbstractActionController
 		// 2) Better use a form class
 		$form = new RegistrationForm();
 		$form->get('submit')->setValue('Register');
-		$form->setHydrator(new DoctrineHydrator($entityManager,'AuthDoctrine\Entity\User'));		
+		$form->setHydrator(new DoctrineHydrator($entityManager,'Auth\Entity\User'));		
 
 		$form->bind($user);		
 		$request = $this->getRequest();
@@ -52,7 +52,7 @@ class RegistrationController extends AbstractActionController
 				$this->flashMessenger()->addMessage($user->getUsrEmail());
 				$entityManager->persist($user);
 				$entityManager->flush();				
-				return $this->redirect()->toRoute('auth-doctrine/default', array('controller'=>'registration', 'action'=>'registration-success'));					
+				return $this->redirect()->toRoute('auth/default', array('controller'=>'registration', 'action'=>'registration-success'));					
 			}			 
 		}
 		return new ViewModel(array('form' => $form));
@@ -76,14 +76,14 @@ class RegistrationController extends AbstractActionController
 		$viewModel = new ViewModel(array('token' => $token));
 		try {
 			$entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-			$user = $entityManager->getRepository('AuthDoctrine\Entity\User')->findOneBy(array('usrRegistrationToken' => $token)); // 
+			$user = $entityManager->getRepository('Auth\Entity\User')->findOneBy(array('usrRegistrationToken' => $token)); // 
 			$user->setUsrActive(1);
 			$user->setUsrEmailConfirmed(1);
 			$entityManager->persist($user);
 			$entityManager->flush();
 		}
 		catch(\Exception $e) {
-			$viewModel->setTemplate('auth-doctrine/registration/confirm-email-error.phtml');
+			$viewModel->setTemplate('auth/registration/confirm-email-error.phtml');
 		}
 		return $viewModel;
 	}
@@ -100,7 +100,7 @@ class RegistrationController extends AbstractActionController
 				$data = $form->getData();
 				$usrEmail = $data['usrEmail'];
 				$entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-				$user = $entityManager->getRepository('AuthDoctrine\Entity\User')->findOneBy(array('usrEmail' => $usrEmail)); // 
+				$user = $entityManager->getRepository('Auth\Entity\User')->findOneBy(array('usrEmail' => $usrEmail)); // 
 				$password = $this->generatePassword();
 				$passwordHash = $this->encriptPassword($this->getStaticSalt(), $password, $user->getUsrPasswordSalt());
 				$this->sendPasswordByEmail($usrEmail, $password);
@@ -108,7 +108,7 @@ class RegistrationController extends AbstractActionController
 				$user->setUsrPassword($passwordHash);
 				$entityManager->persist($user);
 				$entityManager->flush();				
-                return $this->redirect()->toRoute('auth-doctrine/default', array('controller'=>'registration', 'action'=>'password-change-success'));
+                return $this->redirect()->toRoute('auth/default', array('controller'=>'registration', 'action'=>'password-change-success'));
 			}					
 		}		
 		return new ViewModel(array('form' => $form));			
@@ -259,7 +259,7 @@ class RegistrationController extends AbstractActionController
 				->setSubject('Please, confirm your registration!')
 				->setBody("Please, click the link to confirm your registration => " . 
 					$this->getRequest()->getServer('HTTP_ORIGIN') .
-					$this->url()->fromRoute('auth-doctrine/default', array(
+					$this->url()->fromRoute('auth/default', array(
 						'controller' => 'registration', 
 						'action' => 'confirm-email', 
 						'id' => $user->getUsrRegistrationToken())));
@@ -291,7 +291,7 @@ class RegistrationController extends AbstractActionController
 	{
 		$builder = new DoctrineAnnotationBuilder($entityManager);
 		$form = $builder->createForm( $user );
-		$form->setHydrator(new DoctrineHydrator($entityManager,'AuthDoctrine\Entity\User'));
+		$form->setHydrator(new DoctrineHydrator($entityManager,'Auth\Entity\User'));
 		$filter = $form->getInputFilter();
 		$form->remove('usrlId');
 		$form->remove('lngId');

@@ -59,7 +59,7 @@ class User
     /**
      * @var integer
      *
-     * @ORM\Column(name="userl_id", type="integer", nullable=true)
+     * @ORM\Column(name="user_role_id", type="integer", nullable=true)
 	 * @ORM\OneToMany(targetEntity="user_roles")
 	 * @ORM\JoinColumn(name="userl_id", referencedColumnName="userl_id")
 	 * @Annotation\Type("Zend\Form\Element\Select")
@@ -67,7 +67,7 @@ class User
 	 * "label":"User Role:",
 	 * "value_options":{ "0":"Select Role", "1":"Public", "2": "Member"}})
      */
-    private $userlId;
+    private $userRoleId;
 
     /**
      * @var integer
@@ -221,26 +221,26 @@ class User
     }
 
     /**
-     * Set userlId
+     * Set userRoleId
      *
-     * @param integer $userlId
+     * @param integer $userRoleId
      * @return Users
      */
-    public function setuserlId($userlId)
+    public function setuserRoleId($userRoleId)
     {
-        $this->userlId = $userlId;
+        $this->userRoleId = $userRoleId;
 
         return $this;
     }
 
     /**
-     * Get userlId
+     * Get userRoleId
      *
      * @return integer
      */
-    public function getuserlId()
+    public function getuserRoleId()
     {
-        return $this->userlId;
+        return $this->userRoleId;
     }
 
     /**

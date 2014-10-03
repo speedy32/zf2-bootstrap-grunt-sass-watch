@@ -14,10 +14,14 @@ class LoginForm extends Form
             'name' => 'username', // 'usr_name',
             'attributes' => array(
                 'type'  => 'text',
-                'placeholder' => 'Username'
+                'placeholder' => 'Username',
+                'class' => ''
             ),
             'options' => array(
                 'label' => 'Username',
+                'attributes' => array(
+                    'class' => 'form-group'
+            ),
             ),
         ));
         $this->add(array(

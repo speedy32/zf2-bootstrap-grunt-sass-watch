@@ -27,7 +27,7 @@ return array(
             'orm_default' => array(
                 'driverClass' => 'Doctrine\DBAL\Driver\PDOPgSql\Driver',
                 'params' => array(
-                    'user' => 'postgresql',
+                    'user' => 'postgres',
                     'password' => 'postgresql/.,',
                     'dbname' => 'zf2_template',
                     'host' => 'localhost',

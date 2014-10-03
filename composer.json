@@ -12,7 +12,6 @@
         "zendframework/zendframework": "2.3.*",
 		"zendframework/zend-authentication": "2.3.*",
         "doctrine/doctrine-orm-module": "0.7.*",
-        "doctrine/mongodb-odm": "1.0.0-BETA11",
         "zendframework/zend-developer-tools": "dev-master",
         "phpunit/phpunit": "4.1.*",
         "squizlabs/php_codesniffer": "1.*",
