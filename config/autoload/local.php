@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Local Configuration Override
  *
@@ -28,7 +27,11 @@ return array(
                 'driverClass' => 'Doctrine\DBAL\Driver\PDOPgSql\Driver',
                 'params' => array(
                     'user' => 'postgres',
+<<<<<<< HEAD
                     'password' => 'postgresql/.,',
+=======
+                    'password' => 'postgres/.,',
+>>>>>>> 8b1b5a9ffe3075aea6e9c38419bd520d3f5cd3e5
                     'dbname' => 'zf2_template',
                     'host' => 'localhost',
                     'port' => '5432'
